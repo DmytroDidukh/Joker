@@ -1,41 +1,48 @@
-import React, {useState} from "react";
-import classNames from 'classnames'
+import React from "react";
 import {connect} from 'react-redux';
-import {Button, } from "@material-ui/core";
+import {bindActionCreators} from "redux";
 
-import './index.scss'
+import {Button} from '../index'
+import {BUTTONS} from '../../configs/constants'
+import * as dataActions from "../../actions";
 
-const Categories = ({categories}) => {
-    const [buttonValue, setButtonValue] = useState('')
+
+const Categories = ({categories, selectedCategory, setSelectedCategory}) => {
+    const {categoryButton} = BUTTONS;
 
     const selectButton = (e) => {
-        const target = e.target.closest('button')
-        const buttonValue = target.children[0].childNodes[0].data
-        setButtonValue(buttonValue)
+        const target = e.target.closest('button');
+        if (target) {
+            const buttonValue = target.children[0].childNodes[0].data;
+            setSelectedCategory(buttonValue);
+        }
     }
 
     return (
-                <div className='categories' onClick={selectButton}>
-                    {
-                        categories.map((categoryName, i) => (
-                            <Button
-                                key={i}
-                                size='small'
-                                variant='outlined'
-                                className={classNames({'active': buttonValue === categoryName})}>
-                                {categoryName}</Button>
-                        ))
-                    }
-                </div>
+        <div className='categories' onClick={selectButton}>
+            {
+                categories.map((categoryName, i) => (
+                    <Button
+                        key={i}
+                        size={categoryButton.size}
+                        variant={categoryButton.variant}
+                        className={categoryButton.class}
+                        value={categoryName}
+                        selectedButtonValue={selectedCategory}
+                    />
+                ))
+            }
+        </div>
     )
 };
 
 
-const mapStateToProps = ({data}) => (
-    {
-        categories: data.categories
+const mapStateToProps = ({categories, selectedCategory}) => {
+    return {
+        categories,
+        selectedCategory
     }
-);
+};
+const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});
 
-
-export default connect(mapStateToProps, null)(Categories);
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);

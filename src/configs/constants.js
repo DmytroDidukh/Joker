@@ -12,7 +12,9 @@ export const LINKS = {
 };
 export const RADIO_DATA = ['Random', 'From category', 'Search'];
 export const BUTTONS = {
-    getJoke: 'Get joke'
+    getJokeButton: {value: 'Get joke', size: 'large', variant: 'contained', color: 'default', class: 'main'},
+    categoryButton: {size: 'small', variant: 'outlined', color: 'default', class: 'active'},
+    jokeButton: {size: 'small', variant: 'outlined', color: 'default'},
 };
 
 

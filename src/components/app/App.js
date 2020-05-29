@@ -1,7 +1,6 @@
 import React from 'react';
 
-import {Header} from '../index'
-import {Body} from '../../containers'
+import {Header, Body} from '../index'
 
 import './index.scss'
 

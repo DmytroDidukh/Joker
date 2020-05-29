@@ -1,4 +1,12 @@
 .App {
   width: 800px;
-  margin: 100px auto;
+  margin: 50px auto;
+}
+
+.bg-border {
+  padding: 30px;
+  border-radius: 25px;
+  background: #ffffff;
+  box-shadow:  -19px 19px 48px #d1d1d1,
+  19px -19px 48px #ffffff;
 }

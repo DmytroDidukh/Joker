@@ -1,0 +1,25 @@
+button.active {
+  background: #000;
+  color: white;
+
+  &:hover {
+    color: white;
+    background: lighten(#000, 20%);
+  }
+}
+
+button.main {
+  margin-top: 20px;
+  background: #000;
+  color: white;
+
+  &:hover {
+    color: white;
+    background: lighten(#000, 20%);
+  }
+}
+
+
+.MuiButton-outlinedSizeSmall {
+  margin: 2px !important;
+}
