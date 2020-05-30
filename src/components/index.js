@@ -6,4 +6,5 @@ export {default as Button} from './button'
 export {default as Joke} from './joke-item'
 export {default as SearchField} from './search-field'
 export {default as Body} from './body'
+export {default as ErrorItem} from './error-item'
 

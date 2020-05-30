@@ -60,4 +60,3 @@ const mapStateToProps = ({categories, jokes, isJokesFound}) => {
 const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Body);
-

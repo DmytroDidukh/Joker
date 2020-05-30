@@ -17,6 +17,15 @@ export const BUTTONS = {
     jokeButton: {size: 'small', variant: 'outlined', color: 'default'},
 };
 
+export const ERROR_MESSAGES = [
+    {id: '', message: 'Please, choose any option first'},
+    {id: 'Search', message: 'Search query should be from 3 to 120 symbols'},
+    {id: 'From category', message: 'Please, choose a category first'},
+]
+
+
+
+
 
 
 
