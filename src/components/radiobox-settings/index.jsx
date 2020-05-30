@@ -54,7 +54,7 @@ const RadioboxSettings = (
                     return selectedCategory && true;
                 case bySearch:
                     setErrorMessageId(bySearch)
-                    const checkLength = searchQuery.length >= 3 && searchQuery.length <= 120;
+                    const checkLength = searchQuery.trim().length >= 3 && searchQuery.trim().length <= 120;
                     return searchQuery && checkLength && true;
                 default:
                     return false;

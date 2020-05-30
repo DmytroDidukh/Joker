@@ -19,7 +19,7 @@ export const BUTTONS = {
 
 export const ERROR_MESSAGES = [
     {id: '', message: 'Please, choose any option first'},
-    {id: 'Search', message: 'Search query should be from 3 to 120 symbols'},
+    {id: 'Search', message: 'Search query length should be from 3 to 120 symbols'},
     {id: 'From category', message: 'Please, choose a category first'},
 ]
 
