@@ -32,3 +32,7 @@ export const removeFavoriteJoke = (id) => ({
     type: 'REMOVE_FAVORITE_JOKE',
     payload: id
 })
+
+export const removeAllFavoritesJokes = () => ({
+    type: 'REMOVE_ALL_FAVORITES_JOKES',
+})

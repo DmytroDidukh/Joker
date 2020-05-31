@@ -7,20 +7,25 @@ import {NO_JOKES_MESSAGES} from "../../configs/constants";
 import * as dataActions from "../../actions";
 
 
-const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke}) => {
+const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke, removeAllFavoritesJokes}) => {
 
     useEffect(() => {
         const favorites = JSON.parse(localStorage.getItem('favorites'));
         favorites && setFavoriteJoke(favorites)
-    }, [])
+    }, []);
 
-    const onRemove = (id) => {
+    const onRemoveOneJoke = (id) => {
         window.confirm('Not funny anymore?') && removeFavoriteJoke(id);
-    }
+    };
+
+    const onRemoveAllJokes = (id) => {
+        window.confirm('Remove all jokes from \'Favorites\'?') && removeAllFavoritesJokes(id);
+    };
 
     return (
         <aside className='App__favorites'>
             <h5 className='title'>Favorites</h5>
+            <span className='clear' onClick={onRemoveAllJokes}>remove all</span>
             <div className='favorite-section'>
                 {
                     favoritesJokes.length ? (
@@ -29,14 +34,14 @@ const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke}) 
                                 key={joke.id}
                                 joke={joke}
                                 favoritesJokes={favoritesJokes}
-                                removeFavoriteJoke={onRemove}
+                                removeFavoriteJoke={onRemoveOneJoke}
                                 favorite
                             />
                         ))
                     ) : (
                         <div className='jokes-section__no-jokes mt-5'>
                             {NO_JOKES_MESSAGES.noFavourites}
-                            <span>&#128420;</span>
+                            <span role='img' aria-label="black-heart">&#128420;</span>
                         </div>
                     )
                 }
@@ -45,11 +50,7 @@ const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke}) 
     )
 }
 
-const mapStateToProps = ({favoritesJokes}) => {
-    return {
-        favoritesJokes
-    }
-};
+const mapStateToProps = ({favoritesJokes}) => ({favoritesJokes})
 const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteSection);
