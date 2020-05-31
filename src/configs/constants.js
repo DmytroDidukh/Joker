@@ -1,4 +1,4 @@
-export const welcome = {
+export const WELCOME = {
     hi: 'Hey!',
     replica: ' Let’s try to find a joke for you:'
 };
@@ -17,9 +17,15 @@ export const BUTTONS = {
     jokeButton: {size: 'small', variant: 'outlined', color: 'default'},
 };
 
+export const NO_JOKES_MESSAGES = {
+    initiate: 'No jokes yet. Choose one by using query options up there ',
+    notFound: 'Nothing was found for this search query ',
+    noFavourites: 'You haven\'t liked any yet ',
+};
+
 export const ERROR_MESSAGES = [
     {id: '', message: 'Please, choose any option first'},
-    {id: 'Search', message: 'Search query length should be from 3 to 120 symbols'},
+    {id: 'Search', message: 'The length of the search query should be in the range of 3 to 120 characters'},
     {id: 'From category', message: 'Please, choose a category first'},
 ]
 

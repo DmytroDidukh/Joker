@@ -4,6 +4,7 @@ const initialState = {
     selectedCategory: '',
     searchQuery: '',
     jokes: [],
+    favoritesJokes: [],
     isJokesFound: false
 };
 
@@ -30,8 +31,9 @@ export default (state = initialState, action) => {
                 searchQuery: action.payload
             };
         case 'SET_JOKES':
-            let jokes = action.payload
+            let jokes = action.payload;
 
+            //checks if got more than one joke
             if (jokes.hasOwnProperty('result')) {
                 jokes = jokes.result
             } else {
@@ -42,7 +44,17 @@ export default (state = initialState, action) => {
                 jokes: [...jokes],
                 isJokesFound: !jokes.length && true
             };
-
+        case 'SET_FAVORITE_JOKE':
+            // sets one or more jokes
+            return {
+                ...state,
+                favoritesJokes: [...state.favoritesJokes, ...action.payload]
+            };
+        case 'REMOVE_FAVORITE_JOKE':
+            return {
+                ...state,
+                favoritesJokes: state.favoritesJokes.filter(joke => joke.id !== action.payload)
+            };
         default:
             return state;
     }

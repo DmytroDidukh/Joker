@@ -1,15 +1,17 @@
 import React from 'react';
 
-import {Header, Body} from '../index'
+import {HeadSection, JokesSection, FavoriteSection} from '../index'
 
-import './index.scss'
-
+import './index.scss';
 
 const App = () => {
     return (
-        <div className="App">
-            <Header/>
-            <Body/>
+        <div className="App d-flex">
+            <div className='App__body'>
+                <HeadSection/>
+                <JokesSection/>
+            </div>
+            <FavoriteSection/>
         </div>
     );
 }

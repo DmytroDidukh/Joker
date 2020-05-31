@@ -1,8 +1,5 @@
-header {
-  border-radius: 25px;
-  background: #ffffff;
-  box-shadow: -19px 19px 48px #d1d1d1,
-  19px -19px 48px #ffffff;
+.head-section {
+  padding: 100px;
 }
 
 .MuiAlert-root {
@@ -15,4 +12,9 @@ header {
 
 .MuiAlert-icon {
   font-size: 14px !important;
+}
+
+.MuiAlert-standardError {
+  padding-right: 50px !important;
+  width: fit-content;
 }

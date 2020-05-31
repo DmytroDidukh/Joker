@@ -1,12 +1,28 @@
 .App {
-  width: 800px;
-  margin: 50px auto;
+  margin: 50px;
+
+  &__body {
+    flex: 1;
+  }
+
+  &__favorites {
+    margin-left: 50px;
+    padding: 30px;
+    width: 500px;
+    border-radius: 25px;
+    background: #e8e8e8;
+    box-shadow: -19px 19px 48px #d1d1d1,
+    19px -19px 48px #ffffff;
+     .title {
+       text-align: center;
+       color: #7c7c7c;
+     }
+  }
 }
 
 .bg-border {
-  padding: 30px;
   border-radius: 25px;
   background: #ffffff;
-  box-shadow:  -19px 19px 48px #d1d1d1,
+  box-shadow: -19px 19px 48px #d1d1d1,
   19px -19px 48px #ffffff;
 }
