@@ -14,12 +14,8 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) =>
     const onAddToFavorites = (e, joke) => {
         e.target.closest('svg').classList.add('liked');
 
-        const isJokeAlreadyLiked = favoritesJokes.find( likedJoke => likedJoke.id === joke.id)
-
-        if (!isJokeAlreadyLiked) {
-            localStorage.setItem('favorites', JSON.stringify([...favoritesJokes, joke]))
-            setFavoriteJoke([joke])
-        }
+        const isJokeAlreadyLiked = favoritesJokes.find( likedJoke => likedJoke.id === joke.id);
+        !isJokeAlreadyLiked && setFavoriteJoke([joke])
     }
 
     const noJokesBodyPreview = () => {

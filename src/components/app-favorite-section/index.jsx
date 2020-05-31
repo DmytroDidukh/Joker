@@ -14,16 +14,8 @@ const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke}) 
         favorites && setFavoriteJoke(favorites)
     }, [])
 
-    const removeFromLocalStorage = (id) => {
-        const newFavoritesJokes = favoritesJokes.filter(joke => joke.id !== id)
-        localStorage.setItem('favorites', JSON.stringify([...newFavoritesJokes]))
-    }
-
     const onRemove = (id) => {
-        if (window.confirm('Not funny anymore?')) {
-            removeFavoriteJoke(id)
-            removeFromLocalStorage(id)
-        }
+        window.confirm('Not funny anymore?') && removeFavoriteJoke(id);
     }
 
     return (
@@ -31,10 +23,10 @@ const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke}) 
             <h5 className='title'>Favorites</h5>
             <div className='favorite-section'>
                 {
-                    !!favoritesJokes.length ? (
-                        favoritesJokes.map((joke, i) => (
+                    favoritesJokes.length ? (
+                        favoritesJokes.map(joke => (
                             <Joke
-                                key={i}
+                                key={joke.id}
                                 joke={joke}
                                 favoritesJokes={favoritesJokes}
                                 removeFavoriteJoke={onRemove}

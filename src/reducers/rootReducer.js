@@ -9,6 +9,11 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
+    const setToLocalStorage = (jokes) => {
+        localStorage.setItem('favorites', JSON.stringify([...jokes]))
+    }
+
+
     switch (action.type) {
         case 'SET_CATEGORIES':
             return {
@@ -46,14 +51,20 @@ export default (state = initialState, action) => {
             };
         case 'SET_FAVORITE_JOKE':
             // sets one or more jokes
+            const favoritesJokes = [...state.favoritesJokes, ...action.payload];
+            setToLocalStorage(favoritesJokes)
+
             return {
                 ...state,
-                favoritesJokes: [...state.favoritesJokes, ...action.payload]
+                favoritesJokes: favoritesJokes
             };
         case 'REMOVE_FAVORITE_JOKE':
+            const newFavoritesJokes = state.favoritesJokes.filter(joke => joke.id !== action.payload);
+            setToLocalStorage(newFavoritesJokes)
+
             return {
                 ...state,
-                favoritesJokes: state.favoritesJokes.filter(joke => joke.id !== action.payload)
+                favoritesJokes: newFavoritesJokes
             };
         default:
             return state;
