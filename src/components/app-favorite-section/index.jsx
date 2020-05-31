@@ -1,14 +1,22 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
 import {bindActionCreators} from "redux";
+import classNames from 'classnames'
 
 import {Joke} from "../index";
 import {NO_JOKES_MESSAGES} from "../../configs/constants";
 import * as dataActions from "../../actions";
 
+import './index.scss';
 
-const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke, removeAllFavoritesJokes}) => {
 
+const FavoriteSection = ({
+                             favoritesJokes,
+                             setFavoriteJoke,
+                             removeFavoriteJoke,
+                             removeAllFavoritesJokes,
+                             isFavoritesVisible
+                         }) => {
     useEffect(() => {
         const favorites = JSON.parse(localStorage.getItem('favorites'));
         favorites && setFavoriteJoke(favorites)
@@ -23,8 +31,8 @@ const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke, r
     };
 
     return (
-        <aside className='App__favorites'>
-            <h5 className='title'>Favorites</h5>
+        <aside className={classNames('App__favorites', {'active-bar': !isFavoritesVisible})}>
+            {isFavoritesVisible && <h5 className='title'>Favorites</h5>}
             <span className='clear' onClick={onRemoveAllJokes}>remove all</span>
             <div className='favorite-section'>
                 {
@@ -50,7 +58,7 @@ const FavoriteSection = ({favoritesJokes, setFavoriteJoke, removeFavoriteJoke, r
     )
 }
 
-const mapStateToProps = ({favoritesJokes}) => ({favoritesJokes})
+const mapStateToProps = ({favoritesJokes, isFavoritesVisible}) => ({favoritesJokes, isFavoritesVisible})
 const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteSection);

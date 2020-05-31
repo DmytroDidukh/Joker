@@ -5,7 +5,8 @@ const initialState = {
     searchQuery: '',
     jokes: [],
     favoritesJokes: [],
-    isJokesFound: false
+    isJokesFound: false,
+    isFavoritesVisible: true,
 };
 
 export default (state = initialState, action) => {
@@ -72,6 +73,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 favoritesJokes: []
+            };
+        case 'SET_FAVORITES_VISIBILITY':
+            return {
+                ...state,
+                isFavoritesVisible: !state.isFavoritesVisible
             };
         default:
             return state;
