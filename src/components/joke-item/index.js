@@ -24,7 +24,7 @@ const Joke = ({
     useEffect(() => {
         const likedJoke = favoritesJokes.find( likedJoke => likedJoke.id === newJoke.id);
         likedJoke && setNewJoke({...newJoke, liked: true});
-    }, [joke, favoritesJokes])
+    }, [])
 
     const getTime = () => {
         const date = new Date(updated_at.split(' ')[0]);
