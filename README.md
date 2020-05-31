@@ -4,7 +4,7 @@ Joker is a simple application for the ability to read funny jokes and facts abou
 ## Installation
 You can try it by using `git clone` or run by following the link below.
 
-##### Local installation
+#### Local installation
 Dillinger requires [Node.js](https://nodejs.org/) to run.
 Install the dependencies and devDependencies and start the server.
 
