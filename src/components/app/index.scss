@@ -6,7 +6,6 @@
   }
 
   &__favorites {
-    position: relative;
     margin-left: 50px;
     padding: 30px;
     width: 500px;
@@ -18,20 +17,6 @@
        text-align: center;
        color: #7c7c7c;
      }
-
-    .clear{
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 10px;
-      cursor: pointer;
-      color: #7c7c7c;
-
-      &:hover {
-        text-decoration: underline;
-        color: red;
-      }
-    }
   }
 }
 

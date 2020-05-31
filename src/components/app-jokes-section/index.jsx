@@ -22,12 +22,12 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) =>
         return isJokesFound ? (
             <div className='jokes-section__no-jokes'>
                 {notFound}
-                <span role='img' aria-label='face-with-rolling-eyes'>&#128580;</span>
+                <span>&#128580;</span>
             </div>
         ) : (
             <div className='jokes-section__no-jokes'>
                 {initiate}
-                <span role='img' aria-label='finger-up'>&#128070;</span>
+                <span>&#128070;</span>
             </div>
         )
     }

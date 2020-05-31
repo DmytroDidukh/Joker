@@ -66,14 +66,8 @@ export default (state = initialState, action) => {
                 ...state,
                 favoritesJokes: newFavoritesJokes
             };
-        case 'REMOVE_ALL_FAVORITES_JOKES':
-            localStorage.clear()
-
-            return {
-                ...state,
-                favoritesJokes: []
-            };
         default:
             return state;
     }
 }
+
