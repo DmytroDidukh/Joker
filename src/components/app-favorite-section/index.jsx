@@ -17,8 +17,11 @@ const FavoriteSection = ({
                              removeAllFavoritesJokes,
                              isFavoritesVisible
                          }) => {
-    const [currentPage, setCurrentPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(0);
 
+    const length = Math.ceil(favoritesJokes.length / 10);
+    const paginationButtonsCount = Array(length).fill(1).map( (val, i) => val + i);
+    const selectorForCurrentPageItems = currentPage * 10;
 
     useEffect(() => {
         const favorites = JSON.parse(localStorage.getItem('favorites'));
@@ -34,9 +37,6 @@ const FavoriteSection = ({
         window.confirm('Remove all jokes from \'Favorites\'?') && removeAllFavoritesJokes(id);
     };
 
-    const length = Math.ceil(favoritesJokes.length / 10);
-    const paginationButtonsCount = Array(length).fill(1).map( (val, i) => val + i);
-
     return (
         <aside className={classNames('App__favorites', {'active-bar': !isFavoritesVisible})}>
             {isFavoritesVisible && <h5 className='title'>Favorites</h5>}
@@ -45,7 +45,7 @@ const FavoriteSection = ({
                 {
                     favoritesJokes.length ? (
                         <div>
-                            {favoritesJokes.slice((currentPage - 1) * 10, (currentPage-1) * 10 +10).map((joke, i) => (
+                            {favoritesJokes.slice(selectorForCurrentPageItems, selectorForCurrentPageItems + 10).map((joke, i) => (
                                 <Joke
                                     key={joke.id}
                                     joke={joke}
