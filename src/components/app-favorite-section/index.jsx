@@ -25,7 +25,6 @@ const FavoriteSection = ({
     const arrayIndexForCurrentPageItems = currentPage * 10;
 
 
-
     useEffect(() => {
         const favorites = JSON.parse(localStorage.getItem(LOCAL_KEY));
         favorites && setFavoriteJoke(favorites);
@@ -71,9 +70,12 @@ const FavoriteSection = ({
                                     favorite
                                 />
                             ))}
-                            <Pagination paginationButtonsCount={paginationButtonsCount}
-                                        currentPage={currentPage}
-                                        setCurrentPage={setCurrentPage}/>
+                            {
+                                favJokesLength > 10 && <Pagination
+                                    paginationButtonsCount={paginationButtonsCount}
+                                    currentPage={currentPage}
+                                    setCurrentPage={setCurrentPage}/>
+                            }
                         </div>
                     ) : (
                         <div className='jokes-section__no-jokes mt-5'>
