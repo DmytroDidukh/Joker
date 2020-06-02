@@ -14,7 +14,8 @@ const Joke = ({
                   favorite,
                   favoritesJokes,
                   setFavoriteJoke = () => {},
-                  removeFavoriteJoke = () => {}
+                  removeFavoriteJoke = () => {},
+                  count = 1
 }) => {
     const [newJoke, setNewJoke] = useState(joke)
     const {jokeButton} = BUTTONS;
@@ -78,6 +79,7 @@ const Joke = ({
                             disabled
                         />
                     }
+                    <span>{count}</span>
                 </div>
             </div>
         </div>
