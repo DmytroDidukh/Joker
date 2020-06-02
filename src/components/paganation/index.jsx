@@ -1,13 +1,11 @@
 import React from "react";
 
-import './index.scss';
+import {Button} from "../index";
+import {BUTTONS} from "../../configs/constants";
 
-const DEFAULT = {
-    ZERO: 0,
-    ONE: 1
-}
 
 const Pagination = ({paginationButtonsCount, currentPage, setCurrentPage}) => {
+    const {paginationButton} = BUTTONS
     const paginationLength = paginationButtonsCount.length;
     const prev = 'prev';
     const next = 'next';
@@ -18,35 +16,43 @@ const Pagination = ({paginationButtonsCount, currentPage, setCurrentPage}) => {
         if (currentPage === buttonInner) {
             return;
         }
-        setCurrentPage(+buttonInner - DEFAULT.ONE);
+        setCurrentPage(+buttonInner - 1);
     }
 
     const onPrevPage = () => {
-        setCurrentPage(currentPage - DEFAULT.ONE);
+        setCurrentPage(currentPage - 1);
     }
 
     const onNextPage = () => {
-        setCurrentPage(currentPage + DEFAULT.ONE);
+        setCurrentPage(currentPage + 1);
     }
 
     return (
         <div className='pagination'>
-            <button className={`pagination__${prev}`}
+            <Button value={prev}
+                    size={paginationButton.size}
+                    variant={paginationButton.variant}
                     onClick={onPrevPage}
-                    disabled={paginationLength === DEFAULT.ONE || currentPage === DEFAULT.ZERO}
-            >{prev}</button>
+                    disabled={paginationLength === 1 || currentPage === 0}
+            />
             {
                 paginationButtonsCount.map((btn, i) => (
-                    <button key={i}
-                            className={`pagination__btn ${currentPage === i && 'active'}`}
+                    <Button key={i}
+                            value={btn}
+                            size={paginationButton.size}
+                            variant={paginationButton.variant}
+                            className={paginationButton.class}
+                            selectedButtonValue={currentPage + 1}
                             onClick={onSelectPageDirectly}
-                    >{btn}</button>
+                    />
                 ))
             }
-            <button className={`pagination__${next}`}
+            <Button value={next}
+                    size={paginationButton.size}
+                    variant={paginationButton.variant}
                     onClick={onNextPage}
-                    disabled={paginationLength === DEFAULT.ONE || currentPage === paginationButtonsCount.length - DEFAULT.ONE}
-            >{next}</button>
+                    disabled={paginationLength === 1 || currentPage === paginationButtonsCount.length - 1}
+            />
         </div>
     )
 };

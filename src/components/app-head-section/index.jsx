@@ -133,7 +133,7 @@ const HeadSection = (
                         variant={getJokeButton.variant}
                         value={getJokeButton.value}
                         className={getJokeButton.class}
-                        onGetJoke={beforeOnGetJokes}
+                        onClick={beforeOnGetJokes}
                     />
                     {
                         showErrorMessage && !checkedRadio && onErrorOccured()

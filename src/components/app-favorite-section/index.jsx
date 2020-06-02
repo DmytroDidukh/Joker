@@ -4,7 +4,7 @@ import {bindActionCreators} from "redux";
 import classNames from 'classnames'
 
 import {Joke, Pagination} from "../index";
-import {NO_JOKES_MESSAGES} from "../../configs/constants";
+import {LOCAL_KEY, NO_JOKES_MESSAGES} from "../../configs/constants";
 import * as dataActions from "../../actions";
 
 import './index.scss';
@@ -19,12 +19,15 @@ const FavoriteSection = ({
                          }) => {
     const [currentPage, setCurrentPage] = useState(0);
 
-    const length = Math.ceil(favoritesJokes.length / 10);
-    const paginationButtonsCount = Array(length).fill(1).map( (val, i) => val + i);
-    const selectorForCurrentPageItems = currentPage * 10;
+    const favJokesLength = favoritesJokes.length;
+    const paginationLength = Math.ceil(favJokesLength / 10);
+    const paginationButtonsCount = Array(paginationLength).fill(1).map((val, i) => val + i);
+    const arrayIndexForCurrentPageItems = currentPage * 10;
+
+
 
     useEffect(() => {
-        const favorites = JSON.parse(localStorage.getItem('favorites'));
+        const favorites = JSON.parse(localStorage.getItem(LOCAL_KEY));
         favorites && setFavoriteJoke(favorites);
     }, []);
 
@@ -37,25 +40,40 @@ const FavoriteSection = ({
         window.confirm('Remove all jokes from \'Favorites\'?') && removeAllFavoritesJokes(id);
     };
 
+    const slicer = () => {
+        const slicedJokes = favoritesJokes.slice(arrayIndexForCurrentPageItems, arrayIndexForCurrentPageItems + 10)
+
+        if (!slicedJokes.length) {
+            setCurrentPage(currentPage - 1)
+        }
+
+        return slicedJokes;
+    }
+
     return (
         <aside className={classNames('App__favorites', {'active-bar': !isFavoritesVisible})}>
-            {isFavoritesVisible && <h5 className='title'>Favorites</h5>}
+            {
+                isFavoritesVisible && <h5 className='title'>Favorites
+                    {!!favJokesLength && <span> ({favJokesLength})</span>}
+                </h5>
+            }
             <span className='clear' onClick={onRemoveAllJokes}>remove all</span>
             <div className='favorite-section'>
                 {
-                    favoritesJokes.length ? (
+                    favJokesLength ? (
                         <div>
-                            {favoritesJokes.slice(selectorForCurrentPageItems, selectorForCurrentPageItems + 10).map((joke, i) => (
+                            {slicer().map(joke => (
                                 <Joke
                                     key={joke.id}
                                     joke={joke}
                                     favoritesJokes={favoritesJokes}
                                     removeFavoriteJoke={onRemoveOneJoke}
                                     favorite
-                                    count={i+1}
                                 />
                             ))}
-                            <Pagination paginationButtonsCount={paginationButtonsCount} currentPage={currentPage} setCurrentPage={setCurrentPage}/>
+                            <Pagination paginationButtonsCount={paginationButtonsCount}
+                                        currentPage={currentPage}
+                                        setCurrentPage={setCurrentPage}/>
                         </div>
                     ) : (
                         <div className='jokes-section__no-jokes mt-5'>

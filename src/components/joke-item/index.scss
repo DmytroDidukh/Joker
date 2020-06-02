@@ -10,6 +10,7 @@
 }
 
 $full-opacity: 1;
+$animation-color: #777;
 
 .joke-item {
   display: flex;
@@ -54,6 +55,7 @@ $full-opacity: 1;
   &__like-icon.liked {
     color: red;
     cursor: inherit;
+    transition: color .2s ease-in-out;
   }
 
   &__data {
@@ -71,4 +73,3 @@ $full-opacity: 1;
     font-style: italic;
   }
 }
-

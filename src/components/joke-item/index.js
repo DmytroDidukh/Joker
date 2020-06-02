@@ -13,19 +13,22 @@ const Joke = ({
                   joke,
                   favorite,
                   favoritesJokes,
-                  setFavoriteJoke = () => {},
-                  removeFavoriteJoke = () => {},
-                  count = 1
-}) => {
+                  setFavoriteJoke = () => {
+                  },
+                  removeFavoriteJoke = () => {
+                  },
+              }) => {
     const [newJoke, setNewJoke] = useState(joke)
     const {jokeButton} = BUTTONS;
     const {updated_at, icon_url, url, value, categories, liked} = newJoke;
     const link = url.split('/').pop()
 
+    const likedJokeFinder = () => favoritesJokes.find(likedJoke => likedJoke.id === newJoke.id);
+
     useEffect(() => {
-        const likedJoke = favoritesJokes.find( likedJoke => likedJoke.id === newJoke.id);
+        const likedJoke = likedJokeFinder()
         likedJoke && setNewJoke({...newJoke, liked: true});
-    }, [])
+    }, [favoritesJokes])
 
     const getTime = () => {
         const date = new Date(updated_at.split(' ')[0]);
@@ -39,7 +42,7 @@ const Joke = ({
     const likeIcon = () => {
         return (
             <FavoriteIcon
-                className={classNames('joke-item__like-icon', {'liked': liked})}
+                className={classNames('joke-item__like-icon', {'liked': liked && likedJokeFinder()})}
                 icon='Favorite'
                 onClick={(e) => setFavoriteJoke(e, newJoke)}/>
         )
@@ -79,7 +82,6 @@ const Joke = ({
                             disabled
                         />
                     }
-                    <span>{count}</span>
                 </div>
             </div>
         </div>
