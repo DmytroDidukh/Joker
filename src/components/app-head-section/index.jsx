@@ -20,7 +20,8 @@ const HeadSection = (
         setSelectedCategory,
         setSearchQuery,
         setJokes,
-        setCategories
+        setCategories,
+        setFavoritesVisibility
     }) => {
 
         const [value, setValue] = useState('');
@@ -92,10 +93,23 @@ const HeadSection = (
             setJokes(jokes)
         }
 
+        const gamburger = (
+            <div className='gamburger-favorites'>
+                <div className='gamburger'>
+                    <input type="checkbox" onClick={setFavoritesVisibility}/>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <p>Favorites</p>
+            </div>
+        )
+
         return (
             <section className='head-section bg-border'>
                 <h1>{WELCOME.hi}</h1>
                 <h2>{WELCOME.replica}</h2>
+                {gamburger}
                 <FormControl component="fieldset" className='header__radio-section'>
                     <RadioGroup value={value} onChange={handleChangeRadio}>
                         <FormControlLabel value={byRandom} control={<Radio color='default'/>} label={byRandom}/>
@@ -119,7 +133,7 @@ const HeadSection = (
                         variant={getJokeButton.variant}
                         value={getJokeButton.value}
                         className={getJokeButton.class}
-                        onGetJoke={beforeOnGetJokes}
+                        onClick={beforeOnGetJokes}
                     />
                     {
                         showErrorMessage && !checkedRadio && onErrorOccured()

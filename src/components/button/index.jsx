@@ -6,7 +6,7 @@ import './index.scss'
 
 const Button = (
     {
-        onGetJoke = () => {
+        onClick = () => {
         },
         size,
         variant,
@@ -19,7 +19,7 @@ const Button = (
 
     return (
         <MaterialButton
-            onClick={onGetJoke}
+            onClick={onClick}
             size={size}
             variant={variant}
             color={color}

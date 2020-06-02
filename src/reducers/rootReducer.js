@@ -1,3 +1,5 @@
+import {LOCAL_KEY} from '../configs/constants'
+
 const initialState = {
     categories: [],
     checkedRadio: '',
@@ -5,12 +7,13 @@ const initialState = {
     searchQuery: '',
     jokes: [],
     favoritesJokes: [],
-    isJokesFound: false
+    isJokesFound: false,
+    isFavoritesVisible: true,
 };
 
 export default (state = initialState, action) => {
     const setToLocalStorage = (jokes) => {
-        localStorage.setItem('favorites', JSON.stringify([...jokes]))
+        localStorage.setItem(LOCAL_KEY, JSON.stringify([...jokes]))
     }
 
 
@@ -38,7 +41,7 @@ export default (state = initialState, action) => {
         case 'SET_JOKES':
             let jokes = action.payload;
 
-            //checks if got more than one joke
+            //checks if got from API more than one joke
             if (jokes.hasOwnProperty('result')) {
                 jokes = jokes.result
             } else {
@@ -72,6 +75,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 favoritesJokes: []
+            };
+        case 'SET_FAVORITES_VISIBILITY':
+            return {
+                ...state,
+                isFavoritesVisible: !state.isFavoritesVisible
             };
         default:
             return state;

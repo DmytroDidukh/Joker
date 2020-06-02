@@ -1,3 +1,4 @@
+export const LOCAL_KEY = 'g2C2VRw`_<9s93_P'
 export const WELCOME = {
     hi: 'Hey!',
     replica: ' Let’s try to find a joke for you:'
@@ -15,6 +16,7 @@ export const BUTTONS = {
     getJokeButton: {value: 'Get joke', size: 'large', variant: 'contained', color: 'default', class: 'main'},
     categoryButton: {size: 'small', variant: 'outlined', color: 'default', class: 'active'},
     jokeButton: {size: 'small', variant: 'outlined', color: 'default'},
+    paginationButton: {size: 'small', variant: 'outlined', color: 'default', class: 'active'},
 };
 
 export const NO_JOKES_MESSAGES = {

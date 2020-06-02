@@ -5,11 +5,12 @@
 
 @mixin icon-position {
   position: absolute;
-  right: 30px;
+  right: 10px;
   cursor: pointer;
 }
 
 $full-opacity: 1;
+$animation-color: #777;
 
 .joke-item {
   display: flex;
@@ -22,7 +23,7 @@ $full-opacity: 1;
 
   &__like-icon {
     @include icon-position;
-    top: 20px;
+    top: 10px;
   }
 
   &__like-icon:not(.liked) {
@@ -54,6 +55,7 @@ $full-opacity: 1;
   &__like-icon.liked {
     color: red;
     cursor: inherit;
+    transition: color .2s ease-in-out;
   }
 
   &__data {

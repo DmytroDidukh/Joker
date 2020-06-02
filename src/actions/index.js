@@ -28,6 +28,10 @@ export const setFavoriteJoke = (joke) => ({
     payload: joke
 })
 
+export const setFavoritesVisibility = () => ({
+    type: 'SET_FAVORITES_VISIBILITY'
+})
+
 export const removeFavoriteJoke = (id) => ({
     type: 'REMOVE_FAVORITE_JOKE',
     payload: id
