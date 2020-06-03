@@ -21,7 +21,6 @@ export default (state = initialState, action) => {
         return Array(paginationLength).fill(1).map((val, i) => val + i);
     }
 
-
     switch (action.type) {
         case 'SET_CATEGORIES':
             return {
@@ -56,16 +55,18 @@ export default (state = initialState, action) => {
                 ...state,
                 jokes: [...jokes],
                 isJokesFound: !jokes.length && true,
-                paginationButtonsCount: getPaginationButtonsCount([...jokes])
+                paginationButtonsCount: getPaginationButtonsCount(jokes)
             };
         case 'SET_FAVORITE_JOKE':
             // sets one or more jokes
             const favoritesJokes = [...state.favoritesJokes, ...action.payload];
             setToLocalStorage(favoritesJokes)
 
+            console.log(getPaginationButtonsCount(favoritesJokes), 'dypa')
             return {
                 ...state,
-                favoritesJokes: favoritesJokes
+                favoritesJokes: favoritesJokes,
+                favPaginationButtonsCount: getPaginationButtonsCount(favoritesJokes)
             };
         case 'REMOVE_FAVORITE_JOKE':
             const newFavoritesJokes = state.favoritesJokes.filter(joke => joke.id !== action.payload);

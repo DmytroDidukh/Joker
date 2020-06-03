@@ -40,7 +40,6 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke, pag
         if (!slicedJokes.length) {
             setCurrentPage(currentPage - 1)
         }
-        console.log(slicedJokes)
         return slicedJokes;
     }
 

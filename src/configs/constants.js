@@ -17,6 +17,8 @@ export const BUTTONS = {
     categoryButton: {size: 'small', variant: 'outlined', color: 'default', class: 'active'},
     jokeButton: {size: 'small', variant: 'outlined', color: 'default'},
     paginationButton: {size: 'small', variant: 'outlined', color: 'default', class: 'active'},
+    prev: 'prev',
+    next: 'next'
 };
 
 export const NO_JOKES_MESSAGES = {

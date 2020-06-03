@@ -16,18 +16,18 @@ const FavoriteSection = ({
                              removeFavoriteJoke,
                              removeAllFavoritesJokes,
                              isFavoritesVisible,
-                             paginationButtonsCount
+                             favPaginationButtonsCount
                          }) => {
     const [currentPage, setCurrentPage] = useState(0);
     const favJokesLength = favoritesJokes.length;
     const arrayIndexForCurrentPageItems = currentPage * 10;
 
+    console.log(favPaginationButtonsCount, 'btn')
 
     useEffect(() => {
         const favorites = JSON.parse(localStorage.getItem(LOCAL_KEY));
         favorites && setFavoriteJoke(favorites);
     }, []);
-
 
     const onRemoveOneJoke = (id) => {
         window.confirm('Not funny anymore?') && removeFavoriteJoke(id);
@@ -69,7 +69,7 @@ const FavoriteSection = ({
                             ))}
                             {
                                 favJokesLength > 10 && <Pagination
-                                    paginationButtonsCount={paginationButtonsCount}
+                                    paginationButtonsCount={favPaginationButtonsCount}
                                     currentPage={currentPage}
                                     setCurrentPage={setCurrentPage}/>
                             }
@@ -86,7 +86,7 @@ const FavoriteSection = ({
     )
 }
 
-const mapStateToProps = ({favoritesJokes, paginationButtonsCount, isFavoritesVisible}) => ({favoritesJokes, paginationButtonsCount, isFavoritesVisible})
+const mapStateToProps = ({favoritesJokes, favPaginationButtonsCount, isFavoritesVisible}) => ({favoritesJokes, favPaginationButtonsCount, isFavoritesVisible})
 const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteSection);
