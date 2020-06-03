@@ -20,5 +20,5 @@ $ yarn start
 ```
 
 #### Deployment
-Stable: [Joker](https://joker-indol.now.sh/)  
-Latest: [Joker](https://joker-naijerqm0.now.sh/)
+[Joker](https://joker-indol.now.sh/)  
+
