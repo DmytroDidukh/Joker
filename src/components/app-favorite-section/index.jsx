@@ -15,13 +15,11 @@ const FavoriteSection = ({
                              setFavoriteJoke,
                              removeFavoriteJoke,
                              removeAllFavoritesJokes,
-                             isFavoritesVisible
+                             isFavoritesVisible,
+                             paginationButtonsCount
                          }) => {
     const [currentPage, setCurrentPage] = useState(0);
-
     const favJokesLength = favoritesJokes.length;
-    const paginationLength = Math.ceil(favJokesLength / 10);
-    const paginationButtonsCount = Array(paginationLength).fill(1).map((val, i) => val + i);
     const arrayIndexForCurrentPageItems = currentPage * 10;
 
 
@@ -58,7 +56,7 @@ const FavoriteSection = ({
             <span className='clear' onClick={onRemoveAllJokes}>remove all</span>
             <div className='favorite-section'>
                 {
-                    favJokesLength ? (
+                    !!favJokesLength ? (
                         <div>
                             {slicer().map(joke => (
                                 <Joke
@@ -88,7 +86,7 @@ const FavoriteSection = ({
     )
 }
 
-const mapStateToProps = ({favoritesJokes, isFavoritesVisible}) => ({favoritesJokes, isFavoritesVisible})
+const mapStateToProps = ({favoritesJokes, paginationButtonsCount, isFavoritesVisible}) => ({favoritesJokes, paginationButtonsCount, isFavoritesVisible})
 const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteSection);

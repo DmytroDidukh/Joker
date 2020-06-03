@@ -8,17 +8,15 @@ import {NO_JOKES_MESSAGES} from '../../configs/constants';
 
 import './index.scss';
 
-const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) => {
+const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke, paginationButtonsCount}) => {
     const [currentPage, setCurrentPage] = useState(0);
 
     const jokesLength = jokes.length;
-    const paginationLength = Math.ceil(jokesLength / 10);
-    const paginationButtonsCount = Array(paginationLength).fill(1).map((val, i) => val + i);
     const arrayIndexForCurrentPageItems = currentPage * 10;
     const {initiate, notFound} = NO_JOKES_MESSAGES;
 
     const onAddToFavorites = (e, joke) => {
-        const isJokeAlreadyLiked = favoritesJokes.find( likedJoke => likedJoke.id === joke.id);
+        const isJokeAlreadyLiked = favoritesJokes.find(likedJoke => likedJoke.id === joke.id);
         !isJokeAlreadyLiked && setFavoriteJoke([joke])
     }
 
@@ -49,17 +47,20 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) =>
     return (
         <section className='jokes-section bg-border'>
             {
-                !!jokes.length ? (
-                    <div>
-                        {slicer().map((joke) => (
-                            <Joke
-                                key={joke.id}
-                                joke={joke}
-                                favoritesJokes={favoritesJokes}
-                                setFavoriteJoke={onAddToFavorites}
-                            />
-                        ))
-                    }
+                !!jokesLength ? (
+                    <div className='d-flex flex-column'>
+                        <span
+                            className='jokes-section__find-info'>{jokesLength} {jokesLength > 1 ? 'jokes' : 'joke'} found</span>
+                        {
+                            slicer().map((joke) => (
+                                <Joke
+                                    key={joke.id}
+                                    joke={joke}
+                                    favoritesJokes={favoritesJokes}
+                                    setFavoriteJoke={onAddToFavorites}
+                                />
+                            ))
+                        }
                         {
                             jokesLength > 10 && <Pagination
                                 paginationButtonsCount={paginationButtonsCount}
@@ -75,12 +76,13 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) =>
     )
 };
 
-const mapStateToProps = ({categories, jokes, favoritesJokes, isJokesFound}) => {
+const mapStateToProps = ({categories, jokes, favoritesJokes, isJokesFound, paginationButtonsCount}) => {
     return {
         categories,
         jokes,
         favoritesJokes,
-        isJokesFound
+        isJokesFound,
+        paginationButtonsCount
     }
 };
 const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});

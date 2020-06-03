@@ -2,9 +2,15 @@
   margin-top: 30px;
   padding: 30px 100px;
 
+
   &__no-jokes {
     text-align: center;
     color: #676767;
+  }
+
+  &__find-info {
+    text-align: right;
+    opacity: .5;
   }
 
   &__joke-item {
@@ -25,7 +31,7 @@
 }
 
 @media screen and (max-width: 1282px) {
- .jokes-section {
-   padding: 10px;
- }
+  .jokes-section {
+    padding: 10px;
+  }
 }

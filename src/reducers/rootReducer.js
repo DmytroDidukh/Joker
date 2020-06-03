@@ -16,6 +16,11 @@ export default (state = initialState, action) => {
         localStorage.setItem(LOCAL_KEY, JSON.stringify([...jokes]))
     }
 
+    const getPaginationButtonsCount = (jokes) => {
+        const paginationLength = Math.ceil(jokes.length / 10);
+        return Array(paginationLength).fill(1).map((val, i) => val + i);
+    }
+
 
     switch (action.type) {
         case 'SET_CATEGORIES':
@@ -50,7 +55,8 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 jokes: [...jokes],
-                isJokesFound: !jokes.length && true
+                isJokesFound: !jokes.length && true,
+                paginationButtonsCount: getPaginationButtonsCount([...jokes])
             };
         case 'SET_FAVORITE_JOKE':
             // sets one or more jokes
