@@ -1,18 +1,22 @@
-import React from "react";
+import React, {useState} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 
 import * as dataActions from "../../actions";
-import {Joke} from "../index";
+import {Joke, Pagination} from "../index";
 import {NO_JOKES_MESSAGES} from '../../configs/constants';
 
 import './index.scss';
 
-const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) => {
+const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke, paginationButtonsCount}) => {
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const jokesLength = jokes.length;
+    const arrayIndexForCurrentPageItems = currentPage * 10;
     const {initiate, notFound} = NO_JOKES_MESSAGES;
 
     const onAddToFavorites = (e, joke) => {
-        const isJokeAlreadyLiked = favoritesJokes.find( likedJoke => likedJoke.id === joke.id);
+        const isJokeAlreadyLiked = favoritesJokes.find(likedJoke => likedJoke.id === joke.id);
         !isJokeAlreadyLiked && setFavoriteJoke([joke])
     }
 
@@ -30,18 +34,40 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) =>
         )
     }
 
+    const slicer = () => {
+        const slicedJokes = jokes.slice(arrayIndexForCurrentPageItems, arrayIndexForCurrentPageItems + 10)
+
+        if (!slicedJokes.length) {
+            setCurrentPage(currentPage - 1)
+        }
+        console.log(slicedJokes)
+        return slicedJokes;
+    }
+
     return (
         <section className='jokes-section bg-border'>
             {
-                !!jokes.length ? (
-                    jokes.map((joke) => (
-                        <Joke
-                            key={joke.id}
-                            joke={joke}
-                            favoritesJokes={favoritesJokes}
-                            setFavoriteJoke={onAddToFavorites}
-                        />
-                    ))
+                !!jokesLength ? (
+                    <div className='d-flex flex-column'>
+                        <span
+                            className='jokes-section__find-info'>{jokesLength} {jokesLength > 1 ? 'jokes' : 'joke'} found</span>
+                        {
+                            slicer().map((joke) => (
+                                <Joke
+                                    key={joke.id}
+                                    joke={joke}
+                                    favoritesJokes={favoritesJokes}
+                                    setFavoriteJoke={onAddToFavorites}
+                                />
+                            ))
+                        }
+                        {
+                            jokesLength > 10 && <Pagination
+                                paginationButtonsCount={paginationButtonsCount}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}/>
+                        }
+                    </div>
                 ) : (
                     noJokesBodyPreview()
                 )
@@ -50,12 +76,13 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) =>
     )
 };
 
-const mapStateToProps = ({categories, jokes, favoritesJokes, isJokesFound}) => {
+const mapStateToProps = ({categories, jokes, favoritesJokes, isJokesFound, paginationButtonsCount}) => {
     return {
         categories,
         jokes,
         favoritesJokes,
-        isJokesFound
+        isJokesFound,
+        paginationButtonsCount
     }
 };
 const mapDispatchToProps = (dispatch) => ({...bindActionCreators(dataActions, dispatch)});
