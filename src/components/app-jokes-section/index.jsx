@@ -1,14 +1,20 @@
-import React from "react";
+import React, {useState} from "react";
 import {bindActionCreators} from "redux";
 import {connect} from "react-redux";
 
 import * as dataActions from "../../actions";
-import {Joke} from "../index";
+import {Joke, Pagination} from "../index";
 import {NO_JOKES_MESSAGES} from '../../configs/constants';
 
 import './index.scss';
 
 const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) => {
+    const [currentPage, setCurrentPage] = useState(0);
+
+    const jokesLength = jokes.length;
+    const paginationLength = Math.ceil(jokesLength / 10);
+    const paginationButtonsCount = Array(paginationLength).fill(1).map((val, i) => val + i);
+    const arrayIndexForCurrentPageItems = currentPage * 10;
     const {initiate, notFound} = NO_JOKES_MESSAGES;
 
     const onAddToFavorites = (e, joke) => {
@@ -30,18 +36,37 @@ const JokesSection = ({jokes, isJokesFound, favoritesJokes, setFavoriteJoke}) =>
         )
     }
 
+    const slicer = () => {
+        const slicedJokes = jokes.slice(arrayIndexForCurrentPageItems, arrayIndexForCurrentPageItems + 10)
+
+        if (!slicedJokes.length) {
+            setCurrentPage(currentPage - 1)
+        }
+        console.log(slicedJokes)
+        return slicedJokes;
+    }
+
     return (
         <section className='jokes-section bg-border'>
             {
                 !!jokes.length ? (
-                    jokes.map((joke) => (
-                        <Joke
-                            key={joke.id}
-                            joke={joke}
-                            favoritesJokes={favoritesJokes}
-                            setFavoriteJoke={onAddToFavorites}
-                        />
-                    ))
+                    <div>
+                        {slicer().map((joke) => (
+                            <Joke
+                                key={joke.id}
+                                joke={joke}
+                                favoritesJokes={favoritesJokes}
+                                setFavoriteJoke={onAddToFavorites}
+                            />
+                        ))
+                    }
+                        {
+                            jokesLength > 10 && <Pagination
+                                paginationButtonsCount={paginationButtonsCount}
+                                currentPage={currentPage}
+                                setCurrentPage={setCurrentPage}/>
+                        }
+                    </div>
                 ) : (
                     noJokesBodyPreview()
                 )

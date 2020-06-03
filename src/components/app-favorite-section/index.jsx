@@ -45,7 +45,6 @@ const FavoriteSection = ({
         if (!slicedJokes.length) {
             setCurrentPage(currentPage - 1)
         }
-
         return slicedJokes;
     }
 
